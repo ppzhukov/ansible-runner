@@ -4,8 +4,11 @@ on:
   push:
     branches:
       - main
-    schedule:
-      - cron: '0 0 * * 0'  # Запускать каждое воскресенье в полночь UTC
+    tags:
+      - '*'
+  schedule:
+    - cron: '0 0 * * 0'  # Запускать каждое воскресенье в полночь UTC
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,8 +20,25 @@ jobs:
     - name: Login to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Generate Date Tag
+      id: generate_date_tag
+      run: echo "::set-output name=tag::$(date +'%yW%V')"
+
+    - name: Generate Git SHA Tag
+      id: generate_git_sha_tag
+      run: echo "::set-output name=sha::$(git rev-parse --short HEAD)"
+
     - name: Build Docker Image
-      run: docker build -t pzhukov/ansible-runner:latest .
+      run: |
+        docker build -t pzhukov/ansible-runner:${{ steps.generate_date_tag.outputs.tag }} \
+                     -t pzhukov/ansible-runner:${{ steps.generate_git_sha_tag.outputs.sha }} \
+                     -t pzhukov/ansible-runner:latest .
 
     - name: Push Docker Image
-      run: docker push pzhukov/ansible-runner:latest
+      run: |
+        docker push pzhukov/ansible-runner:${{ steps.generate_date_tag.outputs.tag }}
+        docker push pzhukov/ansible-runner:${{ steps.generate_git_sha_tag.outputs.sha }}
+        docker push pzhukov/ansible-runner:latest
