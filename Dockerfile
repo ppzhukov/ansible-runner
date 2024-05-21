@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM bitnami/gitlab-runner
 
 # Обновление пакетов и установка необходимых утилит
 RUN apt-get update && apt-get upgrade -y
