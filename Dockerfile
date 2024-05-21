@@ -9,7 +9,8 @@ RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/shar
 RUN . /etc/os-release && export VERSION_CODENAME && echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $VERSION_CODENAME main" | tee /etc/apt/sources.list.d/hashicorp.list
 RUN apt update
 RUN apt install vault
-RUN pip install --no-cache-dir ansible pywinrm pywinrm[kerberos] hvac
+RUN pip install
+RUN pip install ansible pywinrm pywinrm[kerberos] hvac
 RUN apt-get update && apt-get upgrade -y && \
     apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 CMD ["/bin/bash"]
