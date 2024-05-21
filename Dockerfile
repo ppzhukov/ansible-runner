@@ -1,7 +1,6 @@
 FROM bitnami/gitlab-runner
 
-# containers/bitnami/gitlab-runner/16/debian-12/Dockerfile issue
-RUN sudo mkdir -p /var/lib/apt/lists/partial
+USER root
 # Обновление пакетов и установка необходимых утилит
 RUN apt-get update
 RUN apt-get upgrade -y
