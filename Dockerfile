@@ -4,7 +4,7 @@ USER root
 # Обновление пакетов и установка необходимых утилит
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y python3 python3-pip git keyutils cifs-utils ca-certificates python3-dev libkrb5-dev krb5-user libcap2-bin git wget sudo lsb_release
+RUN apt-get install -y python3 python3-pip git keyutils cifs-utils ca-certificates python3-dev libkrb5-dev krb5-user libcap2-bin git wget sudo
 RUN . /etc/os-release
 RUN export UBUNTU_CODENAME
 RUN wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
