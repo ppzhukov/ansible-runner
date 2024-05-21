@@ -21,4 +21,4 @@ jobs:
       run: docker build -t pzhukov/ansible-runner:latest .
 
     - name: Push Docker Image
-      run: docker push your_dockerhub_username/ansible-runner:latest
+      run: docker push pzhukov/ansible-runner:latest
