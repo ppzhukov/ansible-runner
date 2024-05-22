@@ -9,7 +9,7 @@ RUN . /etc/os-release && export VERSION_CODENAME && echo "deb [signed-by=/usr/sh
 RUN apt update
 RUN apt -y install vault
 #setcap -r /usr/bin/vault
-#RUN apt -y reinstall vault
+RUN apt -y reinstall vault
 RUN pip install ansible pywinrm pywinrm[kerberos] hvac
 RUN apt update && apt-get upgrade -y && \
     apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt/archives
