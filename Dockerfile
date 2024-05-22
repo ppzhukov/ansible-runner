@@ -1,4 +1,4 @@
-FROM bitnami/gitlab-runner
+FROM ubuntu:jammy
 USER root
 # Обновление пакетов и установка необходимых утилит
 RUN apt update
@@ -8,11 +8,9 @@ RUN . /etc/os-release && export VERSION_CODENAME && echo "deb [signed-by=/usr/sh
 RUN apt update
 RUN apt -y install vault
 #setcap -r /usr/bin/vault
-RUN apt -y reinstall vault
-RUN pip install --break-system-packages ansible pywinrm pywinrm[kerberos] hvac
+#RUN apt -y reinstall vault
+RUN pip install ansible pywinrm pywinrm[kerberos] hvac
 RUN apt update && apt-get upgrade -y && \
     apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt/archives
-USER 1001
-ENTRYPOINT [ "/usr/bin/dumb-init", "/opt/bitnami/scripts/gitlab-runner/entrypoint.sh" ]
-CMD [ "run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner" ]
+CMD [ "/bin/bash" ]
 
