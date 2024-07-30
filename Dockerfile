@@ -10,7 +10,7 @@ RUN apt update
 RUN apt -y install vault
 #setcap -r /usr/bin/vault
 RUN apt -y reinstall vault
-RUN pip install --break-system-packages ansible pywinrm pywinrm[kerberos] hvac pyVim PyVmomi
+RUN pip install --break-system-packages ansible pywinrm pywinrm[kerberos] hvac pyVim PyVmomi kubernetes
 RUN pip install --break-system-packages dnspython beautifulsoup4 netaddr lxml jmespath requests_gssapi soupsieve gssapi decorator #Basic 
 RUN ansible-galaxy collection install kubernetes.core
 RUN apt update && apt-get upgrade -y && \
