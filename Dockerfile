@@ -1,4 +1,4 @@
-FROM ubuntu:noble
+FROM ubuntu:jammy
 USER root
 # Обновление пакетов и установка необходимых утилит
 ENV DEBIAN_FRONTEND=noninteractive
